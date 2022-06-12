@@ -26,7 +26,7 @@ class SpringFoxConfig {
 
     private val apiInfo: ApiInfo
         get() {
-            val title = "Swagger (eLibrary)"
+            val title = "Swagger (Cat Eat)"
             return ApiInfoBuilder()
                 .title(title)
                 .description(title)
