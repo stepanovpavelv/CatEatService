@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import local.home.cateat.common.util.OsUtils
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching
@@ -18,6 +19,9 @@ import javax.sql.DataSource
 @Configuration
 @EnableCaching
 class DatabaseConfig {
+    @Value("\${app.db.linux-path}")
+    val dbLinuxPath: String? = null
+
     @Bean
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource")
@@ -42,12 +46,14 @@ class DatabaseConfig {
     private fun manualHikariDataSource(): DataSource {
         val config = HikariConfig()
 
-        val prop = Properties()
-        prop.load(FileInputStream(System.getProperty("home.jelastic") + "/db.cfg"))
-        config.jdbcUrl = prop.getProperty("host").toString()
-        config.driverClassName = prop.getProperty("driver").toString()
-        config.username = prop.getProperty("username").toString()
-        config.password = prop.getProperty("password").toString()
+        dbLinuxPath?.let {
+            val prop = Properties()
+            prop.load(FileInputStream(it))
+            config.jdbcUrl = prop.getProperty("host").toString()
+            config.driverClassName = prop.getProperty("driver").toString()
+            config.username = prop.getProperty("username").toString()
+            config.password = prop.getProperty("password").toString()
+        }
 
         return HikariDataSource(config)
     }
