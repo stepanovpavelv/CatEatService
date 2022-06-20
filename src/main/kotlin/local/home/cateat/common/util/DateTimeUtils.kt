@@ -1,6 +1,5 @@
 package local.home.cateat.common.util
 
-import local.home.cateat.indication.adapters.repository.queries.enums.IndicationFields
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
@@ -12,7 +11,7 @@ import java.time.format.DateTimeFormatter
  */
 class DateTimeUtils {
     companion object {
-        private const val DATE_TIME_DB_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS"
+        private const val DATE_TIME_DB_FORMAT = "yyyy-MM-dd HH:mm:ss.S"
 
         fun toInstant(dateString: String) : Instant {
             return LocalDateTime
