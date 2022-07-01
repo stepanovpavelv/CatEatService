@@ -9,9 +9,10 @@ import java.time.Instant
 data class IndicationDao(
     val key: Long,
     val date: Instant,
+    val userId: Int,
     val value: Int
 ) {
     fun toIndication() : Indication {
-        return Indication(key, date, value)
+        return Indication(key, date, userId, value)
     }
 }

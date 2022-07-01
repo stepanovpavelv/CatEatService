@@ -1,7 +1,7 @@
 package local.home.cateat.indication.adapters.repository
 
 import local.home.cateat.common.Query
-import local.home.cateat.indication.core.ports.repository.DatabaseRepository
+import local.home.cateat.common.ports.repository.DatabaseRepository
 import lombok.extern.slf4j.Slf4j
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate

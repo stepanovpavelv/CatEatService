@@ -13,6 +13,7 @@ class IndicationGetQuery(private val whereParameters: Map<String, Any> = mapOf()
     override fun getTemplate(): String {
         var sql = """SELECT t1.${IndicationFields.ID.field},
                             t1.${IndicationFields.CREATE_DATE.field},
+                            t1.${IndicationFields.USER_ID.field},
                             t1.${IndicationFields.VALUE.field}
                       FROM ${IndicationTable.INDICATION.tableName} t1 """
 
@@ -30,6 +31,7 @@ class IndicationGetQuery(private val whereParameters: Map<String, Any> = mapOf()
         return IndicationDao(
             key = queryForMap[IndicationFields.ID.field].toString().toLong(),
             date = DateTimeUtils.toInstant(queryForMap[IndicationFields.CREATE_DATE.field].toString()),
+            userId = queryForMap[IndicationFields.USER_ID.field].toString().toInt(),
             value = queryForMap[IndicationFields.VALUE.field].toString().toInt()
         )
     }

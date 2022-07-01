@@ -1,4 +1,4 @@
-package local.home.cateat.indication.core.ports.repository
+package local.home.cateat.common.ports.repository
 
 import local.home.cateat.common.Query
 

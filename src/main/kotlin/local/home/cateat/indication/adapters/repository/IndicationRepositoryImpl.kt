@@ -7,11 +7,10 @@ import local.home.cateat.indication.adapters.repository.queries.IndicationInsert
 import local.home.cateat.indication.adapters.repository.queries.IndicationRemoveQuery
 import local.home.cateat.indication.adapters.repository.queries.enums.IndicationFields
 import local.home.cateat.indication.core.entities.Indication
-import local.home.cateat.indication.core.ports.repository.DatabaseRepository
+import local.home.cateat.common.ports.repository.DatabaseRepository
 import local.home.cateat.indication.core.ports.repository.IndicationRepository
 import org.springframework.stereotype.Repository
 import java.time.Instant
-import java.util.Date
 
 @Repository
 class IndicationRepositoryImpl(private val databaseRepository: DatabaseRepository) : IndicationRepository {

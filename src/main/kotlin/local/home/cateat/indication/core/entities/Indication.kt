@@ -2,22 +2,21 @@ package local.home.cateat.indication.core.entities
 
 import local.home.cateat.indication.adapters.api.dto.IndicationCreateDto
 import java.time.Instant
-import java.util.Date
 
 /**
  * Модель события.
  */
-class Indication(val createdDate: Instant, val value: Int) {
+class Indication(val createdDate: Instant, val userId: Int, val value: Int) {
     var id: Long? = null
 
-    constructor(id: Long, createdDate: Instant, value: Int) : this(createdDate, value) {
+    constructor(id: Long, createdDate: Instant, userId: Int, value: Int) : this(createdDate, userId, value) {
         this.id = id
     }
 
     companion object {
 
-        fun of(indication: IndicationCreateDto) : Indication {
-            return Indication(indication.date, indication.value)
+        fun of(userId: Int, indication: IndicationCreateDto) : Indication {
+            return Indication(indication.date, userId, indication.value)
         }
     }
 }

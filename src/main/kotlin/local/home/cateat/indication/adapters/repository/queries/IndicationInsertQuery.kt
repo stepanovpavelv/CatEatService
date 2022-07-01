@@ -23,12 +23,14 @@ class IndicationInsertQuery(private val indication: Indication) : Query {
 
     override fun getParameters(): Map<String, Any?> {
         return mapOf(IndicationFields.CREATE_DATE.field to DateTimeUtils.fromInstant(indication.createdDate),
+                     IndicationFields.USER_ID.field to indication.userId,
                      IndicationFields.VALUE.field to indication.value)
     }
 
     private fun prepareQueryFields(prefix: String): String {
         return """
-                $prefix${IndicationFields.CREATE_DATE.field}, 
+                $prefix${IndicationFields.CREATE_DATE.field},
+                $prefix${IndicationFields.USER_ID.field},
                 $prefix${IndicationFields.VALUE.field} 
         """.trimIndent()
     }
