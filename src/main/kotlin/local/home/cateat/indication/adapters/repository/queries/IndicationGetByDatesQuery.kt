@@ -17,7 +17,8 @@ class IndicationGetByDatesQuery(private val startDate: Instant, private val endD
                          t1.${IndicationFields.USER_ID.field},
                          t1.${IndicationFields.VALUE.field}
                    FROM ${IndicationTable.INDICATION.tableName} t1
-                   WHERE t1.${IndicationFields.CREATE_DATE.field} between :startDate and :endDate """
+                   WHERE t1.${IndicationFields.CREATE_DATE.field} between :startDate and :endDate 
+                   ORDER BY t1.${IndicationFields.CREATE_DATE.field} """
     }
 
     override fun getParameters(): Map<String, Any?> {
