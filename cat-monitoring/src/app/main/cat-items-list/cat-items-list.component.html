@@ -1,0 +1,24 @@
+<div>
+    <app-cat-filter (onFilterChange)="changeDateFilter($event)"></app-cat-filter>
+</div>
+
+<table mat-table [dataSource]="catRows" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="rowNumber">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.rowNumber}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Дата </th>
+      <td mat-cell *matCellDef="let element"> {{element.date | date: 'dd.MM.yyyy HH:mm' }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Количество </th>
+      <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,0 +1,23 @@
+<mat-card>
+    <mat-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <h2>Авторизация</h2>
+        <mat-error *ngIf="!authValid">
+          Имя пользователя или пароль некорректны
+        </mat-error>
+        <mat-form-field>
+          <input matInput placeholder="Логин" [(ngModel)]="username" name="username" required>
+          <mat-error>
+            Пожалуйста, введите корректное имя пользователя
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Пароль" [(ngModel)]="password" name="password" required>
+          <mat-error>
+            Пожалуйста, введите корректный пароль
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Войти</button>
+      </form>
+    </mat-card-content>
+</mat-card>  
