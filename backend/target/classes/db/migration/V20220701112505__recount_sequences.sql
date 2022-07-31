@@ -1,0 +1,1 @@
+SELECT setval('public.indications_id_seq', (select max(id) from public.indications));
