@@ -15,9 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource
-import org.springframework.web.filter.CorsFilter
 
 @Configuration
 @EnableWebSecurity
@@ -44,20 +41,6 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     private lateinit var filter: JwtFilter
 
     @Bean
-    fun corsFilter(): CorsFilter {
-        val config = CorsConfiguration()
-        config.allowedOrigins = listOf("*")
-        config.allowedMethods = listOf("*")
-        config.allowedHeaders = listOf("*")
-        config.allowCredentials = true
-
-        val source = UrlBasedCorsConfigurationSource()
-        source.registerCorsConfiguration("/**", config)
-
-        return CorsFilter(source)
-    }
-
-    @Bean
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
@@ -75,7 +58,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
             .authorizeRequests().antMatchers(*authWhiteList).permitAll()
             .anyRequest().authenticated()
             .and()
