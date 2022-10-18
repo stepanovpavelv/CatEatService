@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -19,19 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
-
-    private val authWhiteList = arrayOf(
-        "/v2/api-docs", // -- Swagger UI v2
-        "/swagger-resources",
-        "/swagger-resources/**",
-        "/configuration/ui",
-        "/configuration/security",
-        "/swagger-ui.html",
-        "/webjars/**",  // -- Swagger UI v3 (OpenAPI)
-        "/v3/api-docs/**",
-        "/swagger-ui/**", // other public endpoints of your API may be appended to this array
-        "/gateway/private/api/v1/user/login"
-    )
 
     @Autowired
     private lateinit var authenticationEntryPoint: JwtAuthenticationEntryPoint
@@ -58,14 +46,21 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        http.cors().and().csrf().disable()
-            .authorizeRequests().antMatchers(*authWhiteList).permitAll()
-            .anyRequest().authenticated()
+        http.csrf().disable()
+            .authorizeRequests().anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter::class.java)
+
+        http.cors()
+    }
+
+    override fun configure(web: WebSecurity) {
+        // Allow access to /admin/login without authentication
+        web.ignoring().mvcMatchers("/gateway/private/api/v1/user/login")
+        web.ignoring().antMatchers(*SpringFoxConfig.SWAGGER_ENDPOINTS)
     }
 }

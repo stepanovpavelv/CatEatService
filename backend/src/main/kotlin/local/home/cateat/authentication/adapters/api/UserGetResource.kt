@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/gateway/private/api/v1")
-@CrossOrigin(origins = ["http://localhost:4200", "http://localhost:3001"])
 class UserGetResource : UserBaseResource() {
 
     @PostMapping("/user/login")
