@@ -61,5 +61,18 @@ class SpringFoxConfig {
     companion object {
         private const val APP_NAME = "Swagger (Cat Eat)"
         private const val API_KEY = "JWT"
+
+        val SWAGGER_ENDPOINTS = arrayOf(
+            "/v2/api-docs",
+            "/swagger.json",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**" // other public endpoints of your API may be appended to this array
+        )
     }
 }

@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  app:
+    image: 'docker-spring-boot-postgres:latest'
+    container_name: app
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/CatEat
+      - SPRING_DATASOURCE_USERNAME=cat_admin
+      - SPRING_DATASOURCE_PASSWORD=AREymp68888
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: 'postgres:13.3'
+    container_name: db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=cat_admin
+      - POSTGRES_PASSWORD=AREymp68888
+      - POSTGRES_DB=CatEat
